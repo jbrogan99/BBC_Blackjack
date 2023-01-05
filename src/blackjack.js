@@ -45,19 +45,9 @@ const hit = (card) => {
   return currentHand;
 };
 
-console.log("hand", dealHand(currentHand));
-console.log("hit", hit(currentHand));
-// dealCard();
-// hit();
-// let x = hit();
-// console.log("hit", x);
-// dealHand();
-// hit();
-
-// const hit = (firstHand) => {};
-
-// const hit = (currentScore) => {
-
-// };
-
-// console.log("hit", hit(firstHand.score));
+const stand = (hand) => {
+  return hand;
+};
+dealHand(currentHand);
+hit(currentHand);
+console.log("hand", stand(currentHand));
