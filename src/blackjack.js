@@ -52,7 +52,14 @@ const stand = (hand) => {
 const validHand = (hand) => {
   const score = hand.score;
   if (score <= 21) {
-    return currentHand;
+    return true;
+  }
+};
+
+const invalidHand = (hand) => {
+  const score = hand.score;
+  if (score >= 22) {
+    return false;
   }
 };
 
