@@ -48,6 +48,16 @@ const hit = (card) => {
 const stand = (hand) => {
   return hand;
 };
+
+const validHand = (hand) => {
+  const score = hand.score;
+  if (score <= 21) {
+    return currentHand;
+  }
+};
+
 dealHand(currentHand);
-hit(currentHand);
-console.log("hand", stand(currentHand));
+console.log("valid", validHand(currentHand));
+
+// hit(currentHand);
+// console.log("hand", stand(currentHand));
