@@ -6,65 +6,68 @@
 
 const deck = {
   kingHeart: 10,
+  aceHeart: 11 || 1,
   queenHeart: 10,
   eightHeart: 8,
   nineHeart: 9,
 };
 
-let currentHand = {
-  hand: [],
-  score: 0,
-};
-
-const dealCard = (card) => {
+const dealCard = (currentHand) => {
   const cardsKeyValues = Object.entries(deck);
 
   let randomCard =
     cardsKeyValues[Math.floor(Math.random() * cardsKeyValues.length)];
 
-  card.hand.push(randomCard);
+  currentHand.hand.push(randomCard);
 
-  let score = card.hand.reduce((acc, curr) => acc + curr[1], 0);
-  card.score = score;
+  let score = calculateScore(currentHand.hand);
+  currentHand.score = score;
 
   let nameOfCard = randomCard[0];
   delete deck[nameOfCard];
 };
 
-const dealHand = (card) => {
+export const dealHand = (currentHand) => {
   let count = 0;
   while (count < 2) {
-    dealCard(card);
+    dealCard(currentHand);
     count++;
   }
   return currentHand;
 };
 
-const hit = (card) => {
-  dealCard(card);
+export const hit = (currentHand) => {
+  console.log(currentHand);
+  dealCard(currentHand);
+
   return currentHand;
 };
 
-const stand = (hand) => {
-  return hand;
+export const stand = (currentHand) => {
+  return currentHand;
 };
 
-const validHand = (hand) => {
-  const score = hand.score;
+export const validHand = (currentHand) => {
+  const score = currentHand.score;
   if (score <= 21) {
     return true;
   }
 };
 
-const invalidHand = (hand) => {
-  const score = hand.score;
+export const invalidHand = (currentHand) => {
+  const score = currentHand.score;
   if (score >= 22) {
     return false;
   }
 };
 
-dealHand(currentHand);
-console.log("valid", validHand(currentHand));
+export const calculateScore = (hand) =>
+  hand.reduce((acc, curr) => acc + curr[1], 0);
+
+// dealHand(currentHand);
+// console.log("valid", validHand(currentHand));
+
+// console.log("king ace", KingAce(currentHand));
 
 // hit(currentHand);
 // console.log("hand", stand(currentHand));
