@@ -1,29 +1,76 @@
-// data structure example
-// {
-//   hand: [ '5hearts', 5],  ['5clubs',  5],
-//   score: 10
-// }
-
 const deck = {
-  kingHeart: 10,
-  aceHeart: 11 || 1,
-  queenHeart: 10,
-  eightHeart: 8,
-  nineHeart: 9,
+  aceHeart: [1, 11],
+  aceDiam: [1, 11],
+  aceSpade: [1, 11],
+  aceClub: [1, 11],
+  kingHeart: [10],
+  kingHDiam: [10],
+  kingSpade: [10],
+  kingClub: [10],
+  queenHeart: [10],
+  queenDiam: [10],
+  queenSpade: [10],
+  queenClub: [10],
+  jackHeart: [10],
+  jackDiam: [10],
+  jackSpade: [10],
+  jackClub: [10],
+  tenHeart: [10],
+  tenDiam: [10],
+  tenSpade: [10],
+  tenClub: [10],
+  nineHeart: [9],
+  nineDiam: [9],
+  nineSpade: [9],
+  nineClub: [9],
+  eightHeart: [8],
+  eightDiam: [8],
+  eightSpade: [8],
+  eightClub: [8],
+  sevenHeart: [7],
+  sevenDiam: [7],
+  sevenSpade: [7],
+  sevenClub: [7],
+  sixHeart: [6],
+  sixDiam: [6],
+  sixSpade: [6],
+  sixClub: [6],
+  fiveHeart: [5],
+  fiveDiam: [5],
+  fiveSpade: [5],
+  fiveClub: [5],
+  fourHeart: [4],
+  fourDiam: [4],
+  fourSpade: [4],
+  fourClub: [4],
+  threeHeart: [3],
+  threeDiam: [3],
+  threeSpade: [3],
+  threeClub: [3],
+  twoHeart: [2],
+  twoDiam: [2],
+  twoSpade: [2],
+  twoClub: [2],
 };
 
 const dealCard = (currentHand) => {
   const cardsKeyValues = Object.entries(deck);
 
-  let randomCard =
+  const randomCard =
     cardsKeyValues[Math.floor(Math.random() * cardsKeyValues.length)];
 
-  currentHand.hand.push(randomCard);
+  const nameOfCard = randomCard[0];
+  const valueOfCard = randomCard[1];
 
-  let score = calculateScore(currentHand.hand);
+  const newCard = {
+    card: nameOfCard,
+    values: valueOfCard,
+  };
+
+  currentHand.hand.push(newCard);
+
+  const score = calculateBestScore(currentHand.hand);
   currentHand.score = score;
-
-  let nameOfCard = randomCard[0];
   delete deck[nameOfCard];
 };
 
@@ -37,9 +84,7 @@ export const dealHand = (currentHand) => {
 };
 
 export const hit = (currentHand) => {
-  console.log(currentHand);
   dealCard(currentHand);
-
   return currentHand;
 };
 
@@ -61,13 +106,15 @@ export const invalidHand = (currentHand) => {
   }
 };
 
-export const calculateScore = (hand) =>
-  hand.reduce((acc, curr) => acc + curr[1], 0);
+export const calculateBestScore = (hand) => {
+  const score = hand.reduce((acc, current) => {
+    const highestValue = Math.max(...current.values);
+    const lowestValue = Math.min(...current.values);
+    if (highestValue + acc <= 21) {
+      return acc + highestValue;
+    }
+    return acc + lowestValue;
+  }, 0);
 
-// dealHand(currentHand);
-// console.log("valid", validHand(currentHand));
-
-// console.log("king ace", KingAce(currentHand));
-
-// hit(currentHand);
-// console.log("hand", stand(currentHand));
+  return score;
+};
