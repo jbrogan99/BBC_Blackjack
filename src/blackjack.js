@@ -20,7 +20,11 @@ const dealCard = (currentHand) => {
   delete deck[nameOfCard];
 };
 
-export const dealHand = (currentHand) => {
+export const dealHand = () => {
+  const currentHand = {
+    hand: [],
+    score: 0,
+  };
   let count = 0;
   while (count < 2) {
     dealCard(currentHand);
@@ -43,13 +47,7 @@ export const validHand = (currentHand) => {
   if (score <= 21) {
     return true;
   }
-};
-
-export const invalidHand = (currentHand) => {
-  const score = currentHand.score;
-  if (score >= 22) {
-    return false;
-  }
+  return false;
 };
 
 export const calculateBestScore = (hand) => {
@@ -61,6 +59,5 @@ export const calculateBestScore = (hand) => {
     }
     return acc + lowestValue;
   }, 0);
-
   return score;
 };

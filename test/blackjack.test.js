@@ -3,18 +3,12 @@ import {
   hit,
   calculateBestScore,
   validHand,
-  invalidHand,
   stand,
 } from "../src/blackjack.js";
 
 describe("In blackjack", () => {
   test("I am dealt my opening hand, I should have two cards", () => {
-    const currentHand = {
-      hand: [],
-      score: 0,
-    };
-
-    const handAndScore = dealHand(currentHand);
+    const handAndScore = dealHand();
     expect(handAndScore.hand).toHaveLength(2);
   });
 
@@ -106,7 +100,7 @@ describe("In blackjack", () => {
       ],
       score: 28,
     };
-    expect(invalidHand(currentHand)).toBe(false);
+    expect(validHand(currentHand)).toBe(false);
   });
   test("Given I have a king, a queen, and an ace.  When my score is evaluated.Then my score is 21", () => {
     const hand = [
